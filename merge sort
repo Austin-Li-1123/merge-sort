@@ -1,0 +1,76 @@
+
+public class QuickSort {
+
+	public static void quickSort(int[] a, int lo, int hi) {
+		if (lo >= hi) {
+			return;
+		} else {
+			int pivot = pivot(a, lo, hi);
+		//	System.out.print(pivot);
+			swap(a, pivot, lo);
+			int m = partition(a, lo + 1, hi, lo);
+		//	System.out.print(m);
+			if (a[m] < a[pivot]) {
+				swap(a, m, lo);				
+			} else {
+				swap(a, m - 1, lo);
+				m = m - 1;
+			}
+			quickSort(a, lo, m - 1);
+			quickSort(a, m + 1, hi);
+			
+		}
+		
+	}
+	public static int partition(int[] a, int lo, int hi, int pivot) {
+		if (lo >= hi) {
+			return lo;
+		} else {
+			if (a[lo] < a[pivot]) {
+				return partition(a, lo + 1, hi, pivot);
+			} else {
+				swap(a, lo, hi);
+				return partition(a, lo, hi - 1, pivot);
+			}
+		}
+	}
+	
+	public static void swap(int[] a, int one, int two) {
+		int temp = a[one];
+		a[one] = a[two];
+		a[two] = temp;
+	}
+	public static int pivot(int[] a, int lo, int hi) {
+		int middle = (lo + hi) / 2;
+		if (a[lo + 1] >= a[hi]) {
+			if (a[hi] > a[middle]) {
+				return hi;
+			} else if (a[lo + 1] > a[middle]){
+				return middle;
+			} else {
+				return lo + 1;
+			}
+			
+		} else {
+			if (a[lo + 1] > a[middle]) {
+				return lo + 1;
+			} else if (a[hi] > a[middle]) {
+				return middle;
+			} else {
+				return hi;
+			}
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr = new int[] {1, 3, 2, 11, 4, 12, 17, 100, 18};
+		quickSort(arr, 0, 8);
+		
+		for (int i = 0; i < 8; i++) {
+			System.out.print(arr[i] + " ");
+		}
+	}
+
+}
